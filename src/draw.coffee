@@ -493,13 +493,14 @@ exports.Draw = class Draw
           @lightPathElement.setAttribute 'class', 'droplet-light-bevel-path'
 
           @darkPathElement = document.createElementNS SVG_STANDARD, 'path'
-          @darkPathElement.setAttribute 'fill', avgColor @style.fillColor, 0.7, '#000'
+          @darkPathElement.setAttribute 'fill', 'none'
+          @darkPathElement.setAttribute 'stroke', avgColor @style.fillColor, 0.7, '#000'
           if pathString.length > 0
-            @darkPathElement.setAttribute 'd', @getDarkBevelPath()
+            @darkPathElement.setAttribute 'd', @getCommandString()
           @darkPathElement.setAttribute 'class', 'droplet-dark-bevel-path'
 
           pathElement.appendChild @backgroundPathElement
-          pathElement.appendChild @lightPathElement
+          # pathElement.appendChild @lightPathElement
           pathElement.appendChild @darkPathElement
         else
           pathElement.setAttribute 'stroke', @style.strokeColor
@@ -573,7 +574,7 @@ exports.Draw = class Draw
             if @bevel
               @backgroundPathElement.setAttribute 'd', pathString
               @lightPathElement.setAttribute 'd', @getLightBevelPath()
-              @darkPathElement.setAttribute 'd', @getDarkBevelPath()
+              @darkPathElement.setAttribute 'd', @getCommandString()
             else
               @element.setAttribute 'd', pathString
 

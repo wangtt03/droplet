@@ -204,8 +204,8 @@ module.exports = (grunt) ->
 
       lrserver = livereload()
 
-      lrserver.listen 35729, ->
-        console.log 'Livereload server listening on 35729'
+      lrserver.listen 36729, ->
+        console.log 'Livereload server listening on 36729'
 
       w.on 'update', ->
         console.log 'File changed...'
