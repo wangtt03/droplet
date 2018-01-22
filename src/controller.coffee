@@ -2766,7 +2766,7 @@ Editor::showDropdown = (socket = @getCursor(), inPalette = false) ->
 
       @hideDropdown()
 
-    div.addEventListener 'mouseup', ->
+    div.addEventListener 'mousedown', ->
       if el.click
         el.click(setText)
       else

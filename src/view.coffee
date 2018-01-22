@@ -2397,9 +2397,14 @@ exports.View = class View
 
       @textElement.point = new @view.draw.Point 0, 0
       @textElement.value = @model.value
-
-      height = @view.opts.textHeight
-      @minDimensions[0] = new @view.draw.Size(@textElement.bounds().width, height)
+      value = @textElement.value
+      if (value.indexOf("_img") == 1 and
+          /\.(?:jpg|jpeg|gif|png)$/i.test(value.slice(value.indexOf("'")+1, value.lastIndexOf("'"))))
+        height = 120;
+        @minDimensions[0] = new @view.draw.Size(120, height)
+      else
+        height = @view.opts.textHeight
+        @minDimensions[0] = new @view.draw.Size(@textElement.bounds().width, height)
       @minDistanceToBase[0] = {above: height, below: 0}
 
       return null
