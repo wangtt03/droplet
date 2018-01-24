@@ -611,21 +611,38 @@ exports.Draw = class Draw
       setPosition: (point) -> @translate point.from @point
 
       makeElement: ->
-        element = document.createElementNS SVG_STANDARD, 'text'
-        #element.setAttribute 'fill', '#444'
+        if @value.search("_img") == 1 and /\.(?:jpg|jpeg|gif|png)$/i.test(href = @value.slice(@value.indexOf("'")+1, @value.lastIndexOf("'")))
+          serverIp = "/uploadedfiles/"
+          userId = JSON.parse(document.getElementById("user-script").getAttribute("data-navleveldetail")).userID
+          imageClass = "imageHref"
+          if href.search("http://") == -1 or href.search("https://") == -1
+            imageClass = href;
+            href = "http://" + serverIp + userId + '/' + href
+          image = document.createElementNS SVG_STANDARD,'image' 
+          image.setAttribute "class", "imgInBlock"
+          image.setAttribute "id", imageClass
+          image.setAttribute "x", "0" 
+          image.setAttribute "y", "0" 
+          image.setAttribute "width", "120" 
+          image.setAttribute "height", "100" 
+          image.href.baseVal = href
+          return image
+        else
+          element = document.createElementNS SVG_STANDARD, 'text'
+          #element.setAttribute 'fill', '#444'
 
-        # We use the alphabetic baseline and add the distance
-        # to base ourselves to avoid a chrome bug where text zooming
-        # doesn't work for non-alphabetic baselines
-        element.setAttribute 'x', @point.x
-        element.setAttribute 'y', @point.y + self.fontBaseline - self.fontAscent / 2
-        element.setAttribute 'dominant-baseline', 'alphabetic'
+          # We use the alphabetic baseline and add the distance
+          # to base ourselves to avoid a chrome bug where text zooming
+          # doesn't work for non-alphabetic baselines
+          element.setAttribute 'x', @point.x
+          element.setAttribute 'y', @point.y + self.fontBaseline - self.fontAscent / 2
+          element.setAttribute 'dominant-baseline', 'alphabetic'
 
-        #element.setAttribute 'font-family', self.fontFamily
-        #element.setAttribute 'font-size', self.fontSize
+          #element.setAttribute 'font-family', self.fontFamily
+          #element.setAttribute 'font-size', self.fontSize
 
-        text = document.createTextNode @value.replace(/ /g, '\u00A0') # Preserve whitespace
-        element.appendChild text
+          text = document.createTextNode @value.replace(/ /g, '\u00A0') # Preserve whitespace
+          element.appendChild text
 
         return element
 
