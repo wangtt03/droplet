@@ -272,7 +272,6 @@ exports.Editor = class Editor
       @wrapperElement.style.position = 'absolute'
       @wrapperElement.style.right =
         @wrapperElement.style.left =
-        @wrapperElement.style.top =
         @wrapperElement.style.bottom = '0px'
       @wrapperElement.style.overflow = 'hidden'
 
@@ -295,7 +294,6 @@ exports.Editor = class Editor
       @wrapperElement.style.position = 'absolute'
       @wrapperElement.style.right =
         @wrapperElement.style.left =
-        @wrapperElement.style.top =
         @wrapperElement.style.bottom = '0px'
       @wrapperElement.style.overflow = 'hidden'
 
